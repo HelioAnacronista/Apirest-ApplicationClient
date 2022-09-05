@@ -28,4 +28,15 @@ public class ApplicationControllerAdvice {
     public ApiErrors handlePedidoNotFoundException (PedidoNaoEncontradoException ex) {
         return new ApiErrors(ex.getMessage());
     }
+
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleMethodNotValidException( MethodArgumentNotValidException ex ){
+        List<String> errors = ex.getBindingResult().getAllErrors()
+                .stream()
+                .map(erro -> erro.getDefaultMessage())
+                .collect(Collectors.toList());
+        return new ApiErrors(errors);
+    }
 }
