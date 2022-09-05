@@ -1,5 +1,6 @@
 package io.github.helio.rest.dto;
 
+import io.github.helio.validation.NotEmptyList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,11 @@ public class PedidoDTO {
 
     @NotNull(message = "Informe o código do cliente")
     private Integer cliente;
+
     @NotNull(message = "Campo total do pedido é obrigatório.")
     private BigDecimal total;
+
+    @NotEmptyList(message = "Pedido não pode ser realizado sem itens.")
     private List<ItemPedidoDTO> items;
 
 }
