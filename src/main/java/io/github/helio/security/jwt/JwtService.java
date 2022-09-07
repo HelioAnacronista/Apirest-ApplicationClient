@@ -1,5 +1,6 @@
-package io.github.helio;
+package io.github.helio.security.jwt;
 
+import io.github.helio.VendasApplication;
 import io.github.helio.domain.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
