@@ -16,7 +16,6 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private JwtService jwtService;
-
     private UsuarioServiceImpl usuarioService;
 
     public JwtAuthFilter(JwtService jwtService, UsuarioServiceImpl usuarioService) {
@@ -30,10 +29,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletResponse httpServletResponse,
             FilterChain filterChain) throws ServletException, IOException {
 
-         String authorizantion = httpServletRequest.getHeader("Authorizantion");
+         String authorization = httpServletRequest.getHeader("Authorization");
 
-         if ( authorizantion != null && authorizantion.startsWith("Bearer")) {
-             String token = authorizantion.split(" ")[1];
+         if ( authorization != null && authorization.startsWith("Bearer")) {
+             String token = authorization.split(" ")[1];
              boolean isValid = jwtService.tokenValido(token);
 
              if (isValid) {
