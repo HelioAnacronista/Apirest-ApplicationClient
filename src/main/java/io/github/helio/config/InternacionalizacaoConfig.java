@@ -8,6 +8,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.Locale;
 
+//Internacionaliçao das messagens. usando a interpolação das chaves do messagens.properties
 @Configuration
 public class InternacionalizacaoConfig {
 
@@ -17,12 +18,13 @@ public class InternacionalizacaoConfig {
         messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("ISO-8859-1");
 
-        //pode configurar forma dinamica
+        //pode configurar forma de dinamica
         messageSource.setDefaultLocale(Locale.getDefault());
 
         return messageSource;
     }
 
+    //Resposavel pela interpolação
     @Bean
     public LocalValidatorFactoryBean validatorFactoryBean() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();

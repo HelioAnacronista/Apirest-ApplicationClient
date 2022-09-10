@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Spring Web MVC para rodar o Swagger
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -47,6 +48,7 @@ public class SwaggerConfig {
     }
 
     public ApiKey apiKey() {
+        //Passar um header authorization atrásves de um header
         return new ApiKey("JWT", "Authorization", "header");
     }
 
