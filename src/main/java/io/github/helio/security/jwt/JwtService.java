@@ -31,16 +31,33 @@ public class JwtService {
         LocalDateTime dataHoraExpiracao = LocalDateTime.now().plusMinutes(expString);
         Instant instant = dataHoraExpiracao.atZone(ZoneId.systemDefault()).toInstant();
         Date data = Date.from(instant);
+
+        /*
+         Cria um hashmap com as informações que você deseja passar no token
+         HashMap<String, Object> claims = new HashMap<>();
+         claims.put("Email Do Usuario ", "usuario@email.com");
+         claims.put("roles ", "ADMIN");
+         claims.put("login ", usuario.getLogin());
+         claims.put("Expiration Date ", data);
+        */
+
         return Jwts
                 .builder()
                 .setSubject(usuario.getLogin())
                 .setExpiration(data)
+                /*
+                Para passar propriedades customizadas no token
+                Geralmente o padrão é o Subject e data
+                .setClaims(claims)
+                */
+
                 .signWith( SignatureAlgorithm.HS512, chaveAssinatura)
                 .compact();
 
 
     }
 
+    //Decode de código JWT
     private Claims obterClaims (String token) throws ExpiredJwtException {
         return Jwts
                 .parser()
@@ -49,6 +66,7 @@ public class JwtService {
                 .getBody();
     }
 
+    //verificar se o token ainda é valido de acordo com a data e hora de expiração
     public boolean tokenValido (String token ) {
         try {
             Claims claims = obterClaims(token);
@@ -62,6 +80,7 @@ public class JwtService {
         }
     }
 
+    //Serve para saber quem é o usuário que vai estar logado
     public String obterLoginUsuario (String token) throws ExpiredJwtException {
         return (String) obterClaims(token).getSubject();
     }
